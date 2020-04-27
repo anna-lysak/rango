@@ -2,4 +2,5 @@
 */settings_local.py
 db.sqlite3
 /.idea
-/profile_images
+*/profile_images
+*/__pycache__
