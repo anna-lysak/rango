@@ -21,18 +21,18 @@ $sudo pip3 install virtualenv
 Ubuntu installation guide example: https://linuxhint.com/install-pgadmin4-ubuntu/
 
 <h4>Install packages required for psycopg2</h4>
-```
+``` bash
 $sudo apt-get update
 
 $sudo apt-get install libpq-dev python3-dev
 ```
 
 <h4>Now create a virtual environment inside your project root directory</h4>
-```
+``` bash
 $virtualenv ve
 ```
 <h4>Inside your project's root directory</h4>
-```
+``` bash
 $source ve/bin/activate
 
 (ve)$pip install -r requirements.txt
@@ -41,7 +41,7 @@ $source ve/bin/activate
 rewrite DATABASES setting with your own in settings_local.py
 
 <h4>Setup local database</h4>
-```
+``` bash
 (ve)$python manage.py migrate
 
 (ve)$python manage.py createsuperuser
