@@ -7,40 +7,40 @@ Google APIs are used to get pages search results.
 #Installation
 
 We will work with python3 environment.
-<h4>Install pip first</h4>
-```
+####Install pip first
+``` bash
 $sudo apt-get install python3-pip
 ```
 
-<h4>Then install virtualenv using pip3</h4>
-```
+####Then install virtualenv using pip3
+``` bash
 $sudo pip3 install virtualenv
 ```
 
-<h4>Install PostgreSQL and PgAdmin for your system</h4>
+####Install PostgreSQL and PgAdmin for your system
 Ubuntu installation guide example: https://linuxhint.com/install-pgadmin4-ubuntu/
 
-<h4>Install packages required for psycopg2</h4>
+####Install packages required for psycopg2
 ``` bash
 $sudo apt-get update
 
 $sudo apt-get install libpq-dev python3-dev
 ```
 
-<h4>Now create a virtual environment inside your project root directory</h4>
+####Now create a virtual environment inside your project root directory
 ``` bash
 $virtualenv ve
 ```
-<h4>Inside your project's root directory</h4>
+####Inside your project's root directory
 ``` bash
 $source ve/bin/activate
 
 (ve)$pip install -r requirements.txt
 ```
-<h4>Create your rango/settings_local.py file</h4>
+####Create your rango/settings_local.py file
 rewrite DATABASES setting with your own in settings_local.py
 
-<h4>Setup local database</h4>
+####Setup local database
 ``` bash
 (ve)$python manage.py migrate
 
