@@ -1,0 +1,11 @@
+{% if cats %}
+    <div class="sidenav list-group-item" >
+    {% for c in cats %}
+        {% if c == act_cat %}
+            <strong><a class="list-group-item-text" href="{% url 'rangoapp:category' c.slug %}">{{ c.name }}</a></strong><br/>
+        {% else %}
+            <a class="list-group-item-text" href="{% url 'rangoapp:category' c.slug %}">{{ c.name }}</a><br/>
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endif %}

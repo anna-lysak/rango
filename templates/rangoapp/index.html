@@ -1,0 +1,54 @@
+{% extends 'rangoapp/base.html' %}
+
+{% block title_block %}Index{% endblock %}
+
+{% block page_title %}
+<h1>Rango says ...</h1>
+<div>
+    <h3>hey there,
+        {% if user.is_authenticated %}
+            {{ user.username }}
+        {% else %}
+            partner
+        {% endif%}
+    !</h3>
+</div>
+{% endblock%}
+
+{% block body_block %}
+<!-- MOST LIKED CATEGORIES -->
+<div class="col-sm-4 text-left">
+    <h3>Most Liked Categories</h3>
+    <div class="list-group-item" >
+        {% for category in categories %}
+            <div>
+                <a class="list-group-item-text" href="{% url 'rangoapp:category' category.slug %}">{{ category.name }}</a>&nbsp;
+                <div class="btn-info badge">{{ category.likes}}</div><br/>
+            </div>
+        {% empty %}
+            <strong>There are no categories present.</strong>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- MOST VIEWED PAGES -->
+<div class="col-sm-4 text-left">
+    <h3>Most Viewed Pages</h3>
+    <div class="list-group-item" >
+        {% for page in pages %}
+            <div>
+                <a class="list-group-item-text" href="{% url 'rangoapp:goto' %}?page={{ page.id }}">{{ page.title }}</a>&nbsp;
+                <div class="btn-info badge">{{ page.views }}</div><br/>
+            </div>
+        {% empty %}
+            <strong>There are no pages present.</strong>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- VISITS -->
+<div class="col-sm-12 text-left">
+    <br/><br/>
+    <p>Visits: {{ visits }}</p>
+</div>
+{% endblock %}

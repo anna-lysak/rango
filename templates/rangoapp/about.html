@@ -1,0 +1,20 @@
+{% extends 'rangoapp/base.html' %}
+
+{% block title_block %}
+    About
+{% endblock %}
+
+{% block page_title %}
+    <h1>About</h1>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+{% block right_side_width %}<div class="col-sm-12">{% endblock %}
+
+
+{% block body_block %}
+<div>
+    This web site has been created by {{ my_name }} in frames of learning Django framework by following instructions from "Tango With Django 1.9" book. <br /><br/>
+    <img src="{{ MEDIA_URL }}ballerina.jpg" alt="Just a picture" width="550" height="350"  />
+</div>
+{% endblock %}

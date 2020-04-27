@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+{% load rangoapp_template_tags %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Rango App">
+    <meta name="author" content="Anna Lysak">
+    <title>Rango -
+            {% block title_block %}
+                How to Tango With Django
+            {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+</head>
+<body>
+
+    <!-- NAVIGATION MENU -->
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'rangoapp:index' %}">Rango</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'rangoapp:index' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li><a href="{% url 'rangoapp:about' %}"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'rangoapp:add_category' %}"><span class="glyphicon glyphicon-plus"></span> Add New Category</a></li>
+            {% endif %}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'rangoapp:register' %}"><span class="glyphicon glyphicon-edit"></span> Sign Up</a></li>
+            {% if not user.is_authenticated %}
+            <li><a href="{% url 'rangoapp:login' %}"><span class="glyphicon glyphicon-log-in"></span> Log In</a></li>
+            {% else %}
+            <li><a href="{% url 'rangoapp:profile' user.username %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            <li><a href="{% url 'rangoapp:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+            {% endif %}
+          </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid" >
+        <!-- SIDEBAR: CATEGORIES SEARCH, CATEGORIES LIST -->
+        {% block sidebar %}
+        <div class="navbar sidenav col-sm-2" id="sidenav">
+            <div class="side-cats">
+                <div class="form-group">
+                    <form>
+                        <label for="suggestion">Type to find a category</label>
+                        <input class="search-query form-control" type="text" name="suggestion" value="" id="suggestion" />
+                    </form>
+                </div>
+                <div id="cats"></div>
+
+                <hr/>
+
+                {% get_category_list category %}
+
+                {% if user.is_authenticated %}
+                <div>
+                    <br/>
+                    <a href="{% url 'rangoapp:add_category' %}"><strong><u>Add New Category</u></strong></a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endblock %}
+
+        <!-- RIGHT SIDE -->
+        {% block right_side_width %}<div class="col-sm-10">{% endblock %}
+            <div class="jumbotron jumbotron-fluid text-center">
+                {% block page_title %}{% endblock%}
+            </div>
+
+             <!-- PAGE CONTENT -->
+             <div class="col-sm-12 text-left">
+                {% block body_block %}{% endblock %}
+            </div>
+        </div>
+
+    </div>
+
+    <!-- LOAD JavaScript -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/rango.js' %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+

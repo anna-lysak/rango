@@ -1,0 +1,36 @@
+{% extends 'rangoapp/base.html' %}
+{% load static %}
+{% block title_block %}
+Login
+{% endblock %}
+
+{% block page_title %}
+<h1>Login to Rango</h1>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+{% block right_side_width %}<div class="col-sm-12">{% endblock %}
+
+{% block body_block %}
+
+    <div class="col-sm-5"><br/></div>
+    <div class="col-sm-4">
+    {% if error_msg %}
+        <div class="panel panel-danger">
+            <div class="panel-heading"><strong>{{ error_msg }}</strong></div>
+        </div>
+    {% endif %}
+
+    <form id="login_form" method="post" action="{% url 'rangoapp:login'%}?next={{ next }}">
+    {% csrf_token %}
+    Username: <br/><input type="text" name="username" value="" size="50" />
+    <br /><br/>
+    Password: <br/><input type="password" name="password" value="" size="50" />
+    <br /><br/>
+    <input type="submit" value="Log In" class="btn btn-primary" />
+
+    </form>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'rangoapp/base.html' %}
+
+{% block title_block %}
+    {{ category.name}}
+{% endblock %}
+
+{% block page_title %}
+    {% if category %}
+        <h1>{{ category.name }}</h1>
+    {% else %}
+        <h1>Category</h1>
+    {% endif%}
+{% endblock %}
+
+{% block body_block %}
+    {% if category %}
+        <div>
+            <strong id="like_count">{{ category.likes }}</strong> people like this category
+            {% if user.is_authenticated %}
+                <button id="likes" data-catid="{{category.id}}" class="btn btn-primary btn-sm" type="button">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Like
+                </button>
+            {% endif %}
+            <br/>
+        </div>
+
+        <!-- PAGES -->
+        <h3>Pages in this category</h3>
+        <div id="pages">
+            {% include 'rangoapp/parts/page_list.html' %}
+        </div>
+
+        {% if user.is_authenticated %}
+            <div>
+                <br/>
+                <a href="{% url 'rangoapp:add_page' category.slug %}"><strong><u>Add Page</u></strong></a><br/>
+            </div>
+
+            <!-- GOOGLE SEARCH FUNCTIONALITY WITHIN CATEGORY -->
+            <div>
+                <br/>
+                <h3>Search for pages</h3>
+
+                <form class="form-inline" id="user_form" method="post" action="{% url 'rangoapp:category' category.slug %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input class="form-control" type="text" size="50" name="query" value="{{ query }}" id="query" />
+                        <input type="hidden" name="start" value="1" id="start" />
+                        <input type="hidden" name="catid" value="{{ category.id }}" id="catid" />
+                    </div>
+                    <button class="btn btn-primary" type="submit" name="submit" value="Search" id="search-pages">Search</button>
+                </form>
+                <div>
+                {% if result_list %}
+                    <h3>Results</h3>
+                    <!-- Display search results in an ordered list -->
+                    <div class="list-group" id="search_results">
+                        {% include 'rangoapp/parts/search_results.html' %}
+                    </div>
+                {% endif %}
+                    <br/>
+                    <div class="loader"></div>
+                </div>
+            </div>
+            <!-- END OF GOOGLE SEARCH WITHIN CATEGORY -->
+        {% endif %}
+
+    {% else %}
+        The specified category does not exist!
+    {% endif %}
+
+{% endblock %}
+

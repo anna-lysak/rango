@@ -1,0 +1,50 @@
+{% extends 'rangoapp/base.html' %}
+
+{% load static %}
+
+{% block title %}{{ selecteduser.username }} Profile{% endblock %}
+
+{% block page_title %}
+<h1>{{selecteduser.username}} Profile</h1>{% endblock %}
+
+{% block sidebar %}{% endblock %}
+{% block right_side_width %}<div class="col-sm-12">{% endblock %}
+
+{% block body_block %}
+<div class="col-sm-3">
+<img src="{{ MEDIA_URL }}{{ userprofile.picture }}" width="100%" height="150" alt="{{selecteduser.username}}" />
+</div>
+<div class="col-sm-2">
+    <br/><br/>
+{% if selecteduser.username == user.username and user.is_authenticated %}
+    <form id="user_form" method="post" action="{% url 'rangoapp:profile' user.username %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Display each form -->
+    {% for field in user_form.visible_fields %}
+        <div class="form-group">
+            {{ field.errors }}
+            {{ field.label }}<br/>
+            {{ field }} {{ field.help_text }}
+        </div>
+    {% endfor %}
+
+    {% for field in form.visible_fields %}
+        <div class="form-group">
+            {{ field.errors }}
+            {{ field.label }}<br/>
+            {{ field }} {{ field.help_text }}
+        </div>
+    {% endfor %}
+
+    <!-- Provide a button to click to submit the form. -->
+    <input type="submit" class="btn btn-primary" name="submit" value="Update" />
+    </form>
+{% else %}
+    <p><strong>Website:</strong> <a href="{{userprofile.website}}">{{userprofile.website}}</a></p>
+{% endif %}
+    <br/>
+    <br/>
+    <a href="{% url 'rangoapp:profiles' %}"><strong> Profiles List</strong></a>
+
+</div>
+{% endblock %}
