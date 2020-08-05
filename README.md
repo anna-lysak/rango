@@ -1,5 +1,5 @@
 # Rango app
-This is test project that is used to store interesting pages and categorize them. 
+This is test project (for learning Djando 3) to store interesting pages and categorize them. 
 Technologies: Django 3, PostgreSQL, Javascript(Jquery). 
 Google APIs are used to get pages search results.
 
